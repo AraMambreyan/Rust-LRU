@@ -24,3 +24,15 @@ this clean up would have been run in a background thread but in this implementat
 it within `get` and `set` (once there are too many tombstones).
 
 Algorithmic complexity is O(1) amortized.
+
+### LinkedList Update to the above 
+
+After writing the above sections, I implemented a doubly linked list LRU cache and it is actually not too bad. (Check out
+the `src` folder for the code). However,
+adding more functionality to it will be a pain (e.g. `peek`ing as returning a reference to something within a `RefCell` is not
+very seamless) though we don't need it for LRU Cache. 
+
+Interestingly, the linked list implementation is *not* faster in some experiments I ran and they have approximately
+the same speed. (But, again, depends on many things such as the workload and what's the content of the
+`value` as in real life you'd probably keep strings or other objects rather than just `i32` integers). 
+The reason for this is probably cache locality of the vectors.
